@@ -77,8 +77,9 @@ $(function () {
       $('.loadingwrap').hide();
       
         var building = landmarkslocations[indexofdata];
+        building.desc=resolve[2][0];
         var location = new google.maps.LatLng(building.lat, building.lng);
-        addMarker(map, building.name,resolve[2][0], location);
+        addMarker(map, building.name,building.desc, location);
     
      
     })
