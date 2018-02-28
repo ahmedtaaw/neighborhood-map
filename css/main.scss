@@ -12,7 +12,13 @@
       }
       .loadingwrap {
         background-color: #395276;
-        position: absolute;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: flex;
+        align-content: center;
+        align-items: center;
       }
       .loadingblocked{
         width: 40px;
