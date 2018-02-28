@@ -15,11 +15,6 @@ var landmarkslocations=[
         'lng':'29.9082369'
     },
     {
-        'name':'St Catherine',
-        'lat':'28.5598768',
-        'lng':'33.9457757'
-    },
-    {
         'name':'Siwa Oasis',
         'lat':'29.2053969',
         'lng':'25.5161298'

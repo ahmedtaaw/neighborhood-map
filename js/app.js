@@ -47,41 +47,36 @@ google.maps.event.addDomListener(window, 'load', initialize);
 var searchTerm;
 var url;
  var wikibuilding ;
- var placeinfo;
 $(function(){
   for (var x in landmarkslocations) {
     wikibuilding= landmarkslocations[x];
-   placeinfo = getwikidata(wikibuilding.name);
-    console.log(placeinfo);
+    getwikidata(wikibuilding.name);
+   
     //var location = new google.maps.LatLng(building.lat, building.lng);
     //addMarker(map, building.name, location);
 
   }
   function getwikidata(placename){
-    var placenameinfo;
+  
     //searchTerm = $("#wikisearch").val();
     url = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+placename+'&format=json&callback=?';
 
-    $.ajax({
+    var promise = $.ajax({
       url:url,
       type:'GET',
       contentType:'application/json; charset=utf-8',
-      async:false,
       dataType:'json',
       success:function(data,status,jqXHR){
-        placenameinfo= data[2][0];
-        console.log('placenameinfo'+placenameinfo)
+       
       }
+    });
+
+    promise.then(function(resolve){
+      //console.log("data "+ resolve)
+      console.log('Place name '+resolve[1][0]);
+      console.log('place info '+resolve[2][0]);
+      console.log('-------------------');
     })
-    .done(function(){
-      console.log("done!");
-    })
-    .fail(function(){
-      console.log("error!");
-    })
-    .always(function(){
-      console.log("complete!");
-    })
-    return placenameinfo;
+    
   };
 })
