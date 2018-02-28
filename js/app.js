@@ -13,19 +13,23 @@ function initialize() {
   for (var x in landmarkslocations){
     var building = landmarkslocations[x];
     var location = new google.maps.LatLng(building.lat,building.lng);
-    var marker = new google.maps.Marker({
-      position:location,
-      title:building.name,
-      map: map
-    });
-    var infowindow=new google.maps.InfoWindow({
-      content: building.name
-    });
-
-    google.maps.event.addListener(marker,'click',function(){
-      infowindow.open(map,marker);
-    })
+    addMarker(map,building.name,location);
+   
   }
 } 
+
+function addMarker(map,name,location){
+  var marker = new google.maps.Marker({
+    position:location,
+    map: map
+  });
+  var infowindow=new google.maps.InfoWindow({
+    content: name
+  });
+
+  google.maps.event.addListener(marker,'click',function(){
+    infowindow.open(map,marker);
+  });
+}
 
 google.maps.event.addDomListener(window,'load',initialize);
