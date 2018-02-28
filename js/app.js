@@ -89,8 +89,7 @@ $(function () {
   };
 
   $('.sidemenuicon').click(function(e){
-    
-    $('main').toggleClass("opened");
+    $('.sidenav').toggleClass("opened");
     e.preventDefault()
   })
 })
