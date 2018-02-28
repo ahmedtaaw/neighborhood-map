@@ -18,6 +18,13 @@ function initialize() {
       title:building.name,
       map: map
     });
+    var infowindow=new google.maps.InfoWindow({
+      content: building.name
+    });
+
+    google.maps.event.addListener(marker,'click',function(){
+      infowindow.open(map,marker);
+    })
   }
 } 
 
