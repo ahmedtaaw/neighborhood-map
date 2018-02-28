@@ -1,6 +1,6 @@
 var landmarkslocations=[
     {
-        'name':'The Great Pyramid at Giza',
+        'name':'Great Pyramid at Giza',
         'lat':'29.979303',
         'lng':'31.1340128'
     },
@@ -25,12 +25,12 @@ var landmarkslocations=[
         'lng':'25.5161298'
     },
     {
-        'name':'Philae Temple',
+        'name':'Philae',
         'lat':'24.0252419',
         'lng':'32.8837573'
     },
     {
-        'name':'Wadi el Gemal National Park',
+        'name':'Wadi El Gamal National Park',
         'lat':'24.4746349',
         'lng':'35.098064'
     }

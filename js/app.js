@@ -35,6 +35,53 @@ function addMarker(map, name, location) {
     });
     infowindow.open(map, marker);
   });
+
+
+
+
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+var searchTerm;
+var url;
+ var wikibuilding ;
+ var placeinfo;
+$(function(){
+  for (var x in landmarkslocations) {
+    wikibuilding= landmarkslocations[x];
+   placeinfo = getwikidata(wikibuilding.name);
+    console.log(placeinfo);
+    //var location = new google.maps.LatLng(building.lat, building.lng);
+    //addMarker(map, building.name, location);
+
+  }
+  function getwikidata(placename){
+    var placenameinfo;
+    //searchTerm = $("#wikisearch").val();
+    url = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+placename+'&format=json&callback=?';
+
+    $.ajax({
+      url:url,
+      type:'GET',
+      contentType:'application/json; charset=utf-8',
+      async:false,
+      dataType:'json',
+      success:function(data,status,jqXHR){
+        placenameinfo= data[2][0];
+        console.log('placenameinfo'+placenameinfo)
+      }
+    })
+    .done(function(){
+      console.log("done!");
+    })
+    .fail(function(){
+      console.log("error!");
+    })
+    .always(function(){
+      console.log("complete!");
+    })
+    return placenameinfo;
+  };
+})
