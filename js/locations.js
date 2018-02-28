@@ -1,4 +1,4 @@
-var locations=[
+var landmarkslocations=[
     {
         'name':'The Great Pyramid at Giza',
         'lat':'29.979303',
@@ -20,9 +20,9 @@ var locations=[
         'lng':'33.9457757'
     },
     {
-        'name':'Al Hakim Mosque',
-        'lat':'30.0546049',
-        'lng':'31.2635608'
+        'name':'Siwa Oasis',
+        'lat':'29.2053969',
+        'lng':'25.5161298'
     },
     {
         'name':'Philae Temple',
