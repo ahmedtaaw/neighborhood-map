@@ -92,4 +92,30 @@ $(function () {
     $('.sidenav').toggleClass("opened");
     e.preventDefault()
   })
+
+  
 })
+
+
+function AppViewModel() {
+  var selflocations = this;
+
+  selflocations.locationmarker = ko.observableArray(landmarkslocations);
+  selflocations.query=ko.observable('');
+  landmarkslocations.forEach(function(placeLocation){
+    new locationstofilter(placeLocation);
+  });
+  selflocations.filteredPlaces=ko.computed(function() {
+    if (!selflocations.query()) {
+      return selflocations.locationmarker();
+    } else {
+      return selflocations.locationmarker()
+        .filter(place => place.name.toLowerCase().indexOf(selflocations.query().toLowerCase()) > -1);
+    }
+  });
+}
+var locationstofilter = function(data) {
+  this.name = ko.observable(data.name);
+}
+
+ko.applyBindings(new AppViewModel());
