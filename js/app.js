@@ -40,6 +40,9 @@ var wikibuilding;
 
 
 $(function () {
+
+
+
   var startmap = { lat: 29.9792971, lng: 31.1332649 }
   map = new google.maps.Map(document.getElementById('map'), {
     center: startmap,
@@ -71,18 +74,23 @@ $(function () {
 
     promise.then(function (resolve) {
       //console.log("data "+ resolve)
-      console.log('Place name ' + resolve[1][0]);
-      console.log('place info ' + resolve[2][0]);
-      console.log('-------------------');
+      //console.log('Place name ' + resolve[1][0]);
+      //console.log('place info ' + resolve[2][0]);
+      //console.log('-------------------');
       $('.loadingwrap').hide();
       
         var building = landmarkslocations[indexofdata];
         building.desc=resolve[2][0];
         var location = new google.maps.LatLng(building.lat, building.lng);
         addMarker(map, building.name,building.desc, location);
-    
      
     })
 
   };
+
+  $('.sidemenuicon').click(function(e){
+    
+    $('main').toggleClass("opened");
+    e.preventDefault()
+  })
 })
