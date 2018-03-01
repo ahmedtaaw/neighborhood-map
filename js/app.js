@@ -2,6 +2,7 @@ var mapAPIKey = 'AIzaSyBhHOx6xieDMoLhIpTEF1R26ldB9F6Hrcc';
 
 var map;
 var marker;
+var globalmarker=[];
 var infowindow;
 function initialize() {
   
@@ -12,9 +13,10 @@ function initialize() {
 function addMarker(map, name,description, location) {
   var marker = new google.maps.Marker({
     position: location,
-    map: map
+    map: map,
+    title:name
   });
-
+  globalmarker.push(marker);
 
   google.maps.event.addListener(marker, 'click', function () {
     if (typeof infowindow != 'undefined') {
@@ -68,7 +70,7 @@ $(function () {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       success: function (data, status, jqXHR) {
-
+        
       }
     });
 
@@ -83,7 +85,7 @@ $(function () {
         building.desc=resolve[2][0];
         var location = new google.maps.LatLng(building.lat, building.lng);
         addMarker(map, building.name,building.desc, location);
-     
+       
     })
 
   };
@@ -93,7 +95,22 @@ $(function () {
     e.preventDefault()
   })
 
-  
+  $('#filtersearch').click(function(){
+    
+    for (var x in globalmarker) {
+      globalmarker[x].setVisible(false)
+    }
+    $( ".location-list li" ).each(function() {
+      var currentfilter=$( this ).text();
+      for (var x in globalmarker) {
+        console.log(globalmarker[x].title);
+        console.log(currentfilter);
+        if(globalmarker[x].title==currentfilter){
+        globalmarker[x].setVisible(true)
+        }
+      }
+    });
+  });
 })
 
 
