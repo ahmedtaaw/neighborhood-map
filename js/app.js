@@ -45,7 +45,7 @@ $(function () {
 
 
 
-  var startmap = { lat: 29.9792971, lng: 31.1332649 }
+  var startmap = { lat: 29.9792971, lng: 31.1332649 };
   map = new google.maps.Map(document.getElementById('map'), {
     center: startmap,
     zoom: 6
@@ -86,19 +86,19 @@ $(function () {
         var location = new google.maps.LatLng(building.lat, building.lng);
         addMarker(map, building.name,building.desc, location);
        
-    })
+    });
 
-  };
+  }
 
   $('.sidemenuicon').click(function(e){
     $('.sidenav').toggleClass("opened");
-    e.preventDefault()
-  })
+    e.preventDefault();
+  });
 
   $('#filtersearch').click(function(){
     
     for (var x in globalmarker) {
-      globalmarker[x].setVisible(false)
+      globalmarker[x].setVisible(false);
     }
     $( ".location-list li" ).each(function() {
       var currentfilter=$( this ).text();
@@ -106,12 +106,12 @@ $(function () {
         console.log(globalmarker[x].title);
         console.log(currentfilter);
         if(globalmarker[x].title==currentfilter){
-        globalmarker[x].setVisible(true)
+        globalmarker[x].setVisible(true);
         }
       }
     });
   });
-})
+});
 
 
 function AppViewModel() {
@@ -133,6 +133,6 @@ function AppViewModel() {
 }
 var locationstofilter = function(data) {
   this.name = ko.observable(data.name);
-}
+};
 
 ko.applyBindings(new AppViewModel());
