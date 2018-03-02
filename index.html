@@ -18,17 +18,12 @@
 
     <h2>Egypt Locations</h2>
 
-    <div class="input-group">
-      <!--<input type="text" class="form-control" placeholder="Filter Locations..." data-bind="
-        value: query, valueUpdate: 'keyup'">-->
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" id="filtersearch">
-          <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filter
-        </button>
-      </span>
-    </div>
+    <div class="form-group selectplace">
+        <select class="form-control"  data-bind="options: neighborhoodMap.filters,value: selectedFilter,,optionsCaption: 'All Places...'"></select>
+      </div>
 
-    <ul class="location-list" data-bind="foreach: neighborhoodMap.places">
+
+    <ul class="location-list" data-bind="foreach: neighborhoodMap.filteredItems">
       <li>
         <a href="#" data-bind="text: name"></a>
       </li>

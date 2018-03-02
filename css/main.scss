@@ -109,13 +109,15 @@
         text-decoration: none;
       }
     }
-    .input-group{
-      >.form-control{
+    .selectplace{
+      .form-control{
         border-radius: 0;
         border:2px solid #62a0e7;
         border-right: 0;
+        border-radius: 0;
+    }
       }
-      .btn{
+     /* .btn{
         border-radius: 0;
         border:2px solid #62a0e7;
         
@@ -128,8 +130,8 @@
           color: #62a0e7;
         
         }
-      }
-    }
+     
+    } */
   }
 
   .location-list{
