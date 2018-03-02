@@ -38,30 +38,30 @@ var neighborhoodMap = function () {
   });
 
   var filterMarkers = function (selectedplace) {
-    if (selectedplace == 0) {
+    if (selectedplace === 0) {
       for (var x in globalmarker()) {
         globalmarker()[x].setVisible(true);
         globalmarker()[x].setAnimation(false);
       }
     }
     else {
-      for (var x in globalmarker()) {
-        globalmarker()[x].setVisible(false);
-        globalmarker()[x].setAnimation(false);
+      for (var y in globalmarker()) {
+        globalmarker()[y].setVisible(false);
+        globalmarker()[y].setAnimation(false);
       }
-      for (var x in globalmarker()) {
-        if (globalmarker()[x].title == selectedplace) {
+      for (var i in globalmarker()) {
+        if (globalmarker()[i].title == selectedplace) {
           if (typeof infowindow != 'undefined') {
             infowindow.close();
           }
-          globalmarker()[x].setVisible(true);
-          globalmarker()[x].setAnimation(google.maps.Animation.BOUNCE);
-          google.maps.event.trigger(globalmarker()[x], 'click');
+          globalmarker()[i].setVisible(true);
+          globalmarker()[i].setAnimation(google.maps.Animation.BOUNCE);
+          google.maps.event.trigger(globalmarker()[i], 'click');
 
         }
       }
     }
-  }
+  };
 
   var showall = function () {
     console.log("showall");
@@ -69,7 +69,7 @@ var neighborhoodMap = function () {
     selectedFilter('');
     filterMarkers(0);
     // console.log(selectedFilter());
-  }
+  };
   var showallonlyclicked = function (data) {
     // console.log(data);
 
@@ -85,7 +85,7 @@ var neighborhoodMap = function () {
       }
     }
 
-  }
+  };
 
   /*draw map*/
   var addEachPlace = function () {
@@ -100,7 +100,7 @@ var neighborhoodMap = function () {
 
 
 
-  }
+  };
 
   //get wiki data
   function getwikidata(placename, x) {
@@ -163,15 +163,15 @@ var neighborhoodMap = function () {
       } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
       }
-    }
-  }
+    };
+  };
 
   var collapsemenu = function () {
 
     $('.sidenav').toggleClass("opened");
 
 
-  }
+  };
 
   /*starter map */
   var starterMap = function () {
@@ -181,13 +181,13 @@ var neighborhoodMap = function () {
       zoom: 6
     });
     addEachPlace();
-  }
+  };
 
   var init = function () {
     /* add code to initialize this module */
-    ko.applyBindings(neighborhoodMap)
+    ko.applyBindings(neighborhoodMap);
     google.maps.event.addDomListener(window, 'load', starterMap);
-  }
+  };
 
   /* execute the init function when the DOM is ready */
   $(init);
@@ -201,6 +201,6 @@ var neighborhoodMap = function () {
     showall: showall,
     showallonlyclicked: showallonlyclicked,
     collapsemenu: collapsemenu
-  }
+  };
 
 }();
