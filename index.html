@@ -29,7 +29,7 @@
 
     <ul class="location-list" data-bind="foreach: neighborhoodMap.filteredItems">
       <li>
-        <a href="#" data-bind="text: name"></a>
+        <a href="#" data-bind="text: name,click:neighborhoodMap.showallonlyclicked"></a>
       </li>
 
     </ul>
