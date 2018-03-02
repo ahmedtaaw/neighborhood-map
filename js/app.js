@@ -68,11 +68,11 @@ var neighborhoodMap = function () {
     //console.log(selectedFilter());
     selectedFilter('');
     filterMarkers(0);
-   // console.log(selectedFilter());
+    // console.log(selectedFilter());
   }
   var showallonlyclicked = function (data) {
-   // console.log(data);
-    
+    // console.log(data);
+
     for (var x in globalmarker()) {
       if (globalmarker()[x].title == data.name) {
         if (typeof infowindow != 'undefined') {
@@ -166,9 +166,12 @@ var neighborhoodMap = function () {
     }
   }
 
+  var collapsemenu = function () {
+
+    $('.sidenav').toggleClass("opened");
 
 
-
+  }
 
   /*starter map */
   var starterMap = function () {
@@ -196,7 +199,8 @@ var neighborhoodMap = function () {
     selectedFilter: selectedFilter,
     filteredItems: filteredItems,
     showall: showall,
-    showallonlyclicked: showallonlyclicked
+    showallonlyclicked: showallonlyclicked,
+    collapsemenu: collapsemenu
   }
 
 }();
