@@ -19,9 +19,13 @@
     <h2>Egypt Locations</h2>
 
     <div class="form-group selectplace">
-        <select class="form-control"  data-bind="options: neighborhoodMap.filters,value: selectedFilter,,optionsCaption: 'All Places...'"></select>
-      </div>
-
+      <select class="form-control" data-bind="options: neighborhoodMap.filters,value: selectedFilter,,optionsCaption: 'All Places...'"></select>
+    </div>
+    <div class="col-sm-12">
+    <div class="form-group text-right">
+      <button class="btn btn-primary" data-bind="click:showall">Showall</button>
+    </div>
+  </div>
 
     <ul class="location-list" data-bind="foreach: neighborhoodMap.filteredItems">
       <li>
@@ -44,9 +48,11 @@
   </main>
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="/js/knockout-3.4.2.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  
   <script src="/js/locations.js"></script>
   <script src="/js/app2.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
 
 </body>
 

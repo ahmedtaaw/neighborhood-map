@@ -19,8 +19,10 @@ var neighborhoodMap = function () {
 
     this.selectedFilter = ko.observable('');
 
+    this.filter = ko.observable('');
+
     var filteredItems = ko.computed(function () {
-        var filter = selectedFilter();
+        filter = selectedFilter();
 
         if (filter) {
             filterMarkers(filter);
@@ -36,16 +38,37 @@ var neighborhoodMap = function () {
     });
 
     var filterMarkers = function (selectedplace) {
+        if(selectedplace==0){
+            for (var x in globalmarker()) {
+                globalmarker()[x].setVisible(true);
+                globalmarker()[x].setAnimation(false);
+            }
+        }
+        else{
             for (var x in globalmarker()) {
                 globalmarker()[x].setVisible(false);
+                globalmarker()[x].setAnimation(false);
             }
             for (var x in globalmarker()) {
                 if(globalmarker()[x].title==selectedplace){
                     globalmarker()[x].setVisible(true);
+                    globalmarker()[x].setAnimation(google.maps.Animation.BOUNCE);
+                   
+                    if (typeof infowindow != 'undefined') {
+                        infowindow.close();
+                    }
                 }
             }
+        }
     }
    
+    var showall=function(){
+        console.log("showall");
+        //console.log(selectedFilter());
+        selectedFilter('');
+        filterMarkers(0);
+        console.log(selectedFilter());
+    }
 
     /*draw map*/
     var addEachPlace = function () {
@@ -93,7 +116,7 @@ var neighborhoodMap = function () {
         });
 
     }
-
+    var infowindow;
     /*addMarker*/
     var addMarker = function (map, name, description, location) {
         var marker = new google.maps.Marker({
@@ -154,7 +177,8 @@ var neighborhoodMap = function () {
         places: places,
         filters: filters,
         selectedFilter: selectedFilter,
-        filteredItems: filteredItems
+        filteredItems: filteredItems,
+        showall:showall
     }
 
 }();
