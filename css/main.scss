@@ -144,4 +144,6 @@
       margin: 3px 0;
     }
   }
-  
+  .btn[disabled]{
+    opacity: 0.5;
+  }

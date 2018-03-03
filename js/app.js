@@ -1,3 +1,13 @@
+var map;
+function initmap()
+{
+  var startmap = { lat: 29.9792971, lng: 31.1332649 };
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: startmap,
+    zoom: 6
+  });
+
+}
 /*Module for neighborhood map*/
 var neighborhoodMap = function () {
 
@@ -21,6 +31,8 @@ var neighborhoodMap = function () {
 
   this.filter = ko.observable('');
 
+  this.myshowall = ko.observable(false)
+
   var filteredItems = ko.computed(function () {
     filter = selectedFilter();
 
@@ -31,8 +43,10 @@ var neighborhoodMap = function () {
       return places();
     } else {
       return ko.utils.arrayFilter(places(), function (i) {
+        myshowall(true);
         return i.name == filter;
       });
+     
     }
 
   });
@@ -69,6 +83,7 @@ var neighborhoodMap = function () {
     selectedFilter('');
     filterMarkers(0);
     // console.log(selectedFilter());
+    myshowall(false);
   };
   var showallonlyclicked = function (data) {
     // console.log(data);
@@ -84,7 +99,7 @@ var neighborhoodMap = function () {
 
       }
     }
-
+    //myshowall(true);
   };
 
   /*draw map*/
@@ -173,20 +188,12 @@ var neighborhoodMap = function () {
 
   };
 
-  /*starter map */
-  var starterMap = function () {
-    var startmap = { lat: 29.9792971, lng: 31.1332649 };
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: startmap,
-      zoom: 6
-    });
-    addEachPlace();
-  };
+ 
 
   var init = function () {
     /* add code to initialize this module */
+    addEachPlace();
     ko.applyBindings(neighborhoodMap);
-    google.maps.event.addDomListener(window, 'load', starterMap);
   };
 
   /* execute the init function when the DOM is ready */
@@ -200,7 +207,10 @@ var neighborhoodMap = function () {
     filteredItems: filteredItems,
     showall: showall,
     showallonlyclicked: showallonlyclicked,
-    collapsemenu: collapsemenu
+    collapsemenu: collapsemenu,
+    myshowall:myshowall
   };
 
 }();
+
+
