@@ -31,7 +31,7 @@ var neighborhoodMap = function () {
 
   this.filter = ko.observable('');
 
-  this.myshowall = ko.observable(false)
+  this.myshowall = ko.observable(false);
 
   var filteredItems = ko.computed(function () {
     filter = selectedFilter();
