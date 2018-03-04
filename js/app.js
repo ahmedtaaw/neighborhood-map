@@ -1,12 +1,15 @@
 var map;
-function initmap()
-{
+var addEachPlace;
+
+function initmap() {
   var startmap = { lat: 29.9792971, lng: 31.1332649 };
   map = new google.maps.Map(document.getElementById('map'), {
     center: startmap,
     zoom: 6
   });
 
+  ko.applyBindings(neighborhoodMap);
+  addEachPlace();
 }
 /*Module for neighborhood map*/
 var neighborhoodMap = function () {
@@ -17,6 +20,7 @@ var neighborhoodMap = function () {
     this.lat = ko.observable(data.lat);
     this.lng = ko.observable(data.lng);
     this.desc = ko.observable(data.desc);
+    this.category = ko.observable(data.category);
   };
 
 
@@ -33,6 +37,10 @@ var neighborhoodMap = function () {
 
   this.myshowall = ko.observable(false);
 
+  this.showloading = ko.observable(true);
+
+  this.sidenavstatus = ko.observable(false);
+
   var filteredItems = ko.computed(function () {
     filter = selectedFilter();
 
@@ -44,9 +52,9 @@ var neighborhoodMap = function () {
     } else {
       return ko.utils.arrayFilter(places(), function (i) {
         myshowall(true);
-        return i.name == filter;
+        return i.category == filter;
       });
-     
+
     }
 
   });
@@ -64,21 +72,22 @@ var neighborhoodMap = function () {
         globalmarker()[y].setAnimation(false);
       }
       for (var i in globalmarker()) {
-        if (globalmarker()[i].title == selectedplace) {
+        //console.log(globalmarker()[i]);
+        if (globalmarker()[i].category == selectedplace) {
           if (typeof infowindow != 'undefined') {
             infowindow.close();
           }
           globalmarker()[i].setVisible(true);
-          globalmarker()[i].setAnimation(google.maps.Animation.BOUNCE);
-          google.maps.event.trigger(globalmarker()[i], 'click');
-
+          //globalmarker()[i].setAnimation(google.maps.Animation.BOUNCE);
+          //google.maps.event.trigger(globalmarker()[i], 'click');
+          myshowall(true);
         }
       }
     }
   };
 
   var showall = function () {
-    console.log("showall");
+    //console.log("showall");
     //console.log(selectedFilter());
     selectedFilter('');
     filterMarkers(0);
@@ -96,18 +105,22 @@ var neighborhoodMap = function () {
         globalmarker()[x].setVisible(true);
         globalmarker()[x].setAnimation(google.maps.Animation.BOUNCE);
         google.maps.event.trigger(globalmarker()[x], 'click');
-
+        myshowall(true);
       }
     }
     //myshowall(true);
   };
 
   /*draw map*/
-  var addEachPlace = function () {
+  addEachPlace = function () {
     for (var x in places()) {
       //new drawmarker(data);
       //console.log(places()[x].name)
-      filters.push(places()[x].name);
+
+      
+      if ($.inArray(places()[x].category, filters()) == -1) {
+        filters.push(places()[x].category);
+      }
       getwikidata(places()[x].name, x);
 
 
@@ -130,6 +143,9 @@ var neighborhoodMap = function () {
       dataType: 'json',
       success: function (data, status, jqXHR) {
 
+      },
+      error: function (request) {
+        alert(request.responseText);
       }
     });
 
@@ -138,24 +154,26 @@ var neighborhoodMap = function () {
       //console.log('Place name ' + resolve[1][0]);
       //console.log('place info ' + resolve[2][0]);
       //console.log('-------------------');
-      $('.loadingwrap').hide();
+      //$('.loadingwrap').hide();
+      showloading(false);
 
       var building = places()[x];
       building.desc = resolve[2][0];
       var location = new google.maps.LatLng(building.lat, building.lng);
-      addMarker(map, building.name, building.desc, location);
+      addMarker(map, building.name, building.category, building.desc, location);
 
     });
 
   }
   var infowindow;
   /*addMarker*/
-  var addMarker = function (map, name, description, location) {
+  var addMarker = function (map, name, category, description, location) {
     var marker = new google.maps.Marker({
       position: location,
       map: map,
       animation: google.maps.Animation.DROP,
-      title: name
+      title: name,
+      category: category
     });
 
 
@@ -167,7 +185,8 @@ var neighborhoodMap = function () {
         infowindow.close();
       }
       infowindow = new google.maps.InfoWindow({
-        content: name + '<br>' + description
+        content: name + '<br>' + description,
+        maxWidth: 300
       });
       infowindow.open(map, marker);
       toggleBounce();
@@ -183,21 +202,20 @@ var neighborhoodMap = function () {
 
   var collapsemenu = function () {
 
-    $('.sidenav').toggleClass("opened");
-
+    //$('.sidenav').toggleClass("opened");
+    sidenavstatus(!sidenavstatus());
 
   };
 
- 
 
-  var init = function () {
-    /* add code to initialize this module */
-    addEachPlace();
-    ko.applyBindings(neighborhoodMap);
-  };
+
+  //var init = function () {
+  /* add code to initialize this module */
+
+  //};
 
   /* execute the init function when the DOM is ready */
-  $(init);
+  //$(init);
 
   return {
     /*to be exposed publicly */
@@ -208,9 +226,14 @@ var neighborhoodMap = function () {
     showall: showall,
     showallonlyclicked: showallonlyclicked,
     collapsemenu: collapsemenu,
-    myshowall:myshowall
+    myshowall: myshowall,
+    showloading: showloading,
+    sidenavstatus: sidenavstatus
   };
 
 }();
 
 
+function googleError() {
+  alert("Error in Google Maps!");
+}
